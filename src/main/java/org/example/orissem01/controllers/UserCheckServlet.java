@@ -16,7 +16,8 @@ public class UserCheckServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        userService.checkUser(request, response);
+        String resource = userService.checkUser(request);
+        request.getRequestDispatcher(resource).forward(request, response);
     }
 
 }

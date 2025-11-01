@@ -21,6 +21,8 @@ public class RegServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        userService.regUser(request, response);
+        String resource = userService.regUser(request);
+        request.getRequestDispatcher(resource).forward(request, response);
+
     }
 }

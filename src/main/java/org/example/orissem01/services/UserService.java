@@ -37,13 +37,12 @@ public class UserService {
         String password = request.getParameter("password");
         String name     = request.getParameter("name");
         String surname  = request.getParameter("surname");
-        String role     = request.getParameter("role");
 
         User user = new User();
         user.setLogin(login);
         user.setName(name);
         user.setSurname(surname);
-        user.setRole(role);
+        user.setRole("Стажёр");
 
         BCryptPasswordEncoder bCrypt = new BCryptPasswordEncoder();
         user.setPassword(bCrypt.encode(password));
@@ -51,38 +50,36 @@ public class UserService {
         userRepository.addUser(user);
     }
 
-    public void regUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String regUser(HttpServletRequest request) {
         HttpSession session = request.getSession(true);
+
+        String resource = "/reg.ftl";
 
         String login    = request.getParameter("login");
         String password = request.getParameter("password");
         String name     = request.getParameter("name");
         String surname  = request.getParameter("surname");
-        String role     = request.getParameter("role");
 
-        if (isEmpty(login) || isEmpty(password) || isEmpty(name)
-                || isEmpty(surname) || isEmpty(role)){
+        if (isEmpty(login) || isEmpty(password) || isEmpty(name) || isEmpty(surname)){
             request.setAttribute("errormessage", "Введите корректные данные");
-            request.getRequestDispatcher("/reg.ftl").forward(request, response);
+            return resource;
         } else {
             try {
                 addUser(request);
             } catch (SQLException e){
                 request.setAttribute("errormessage", "Пользователь с таким логином уже существует");
-                request.getRequestDispatcher("/reg.ftl").forward(request, response);
-                return;
+                return resource;
             } catch (ClassNotFoundException e){
                 request.setAttribute("errormessage", "Что-то пошло не так, попробуйте еще раз...");
-                request.getRequestDispatcher("/reg.ftl").forward(request, response);
-                return;
+                return resource;
             }
 
             session.setAttribute("user", login);
-            request.getRequestDispatcher("/home.ftl").forward(request, response);
+            return "/home.ftl";
         }
     }
 
-    public void checkUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String checkUser(HttpServletRequest request){
         HttpSession session = request.getSession(false);
 
         String resource = "/home.ftl";
@@ -113,12 +110,10 @@ public class UserService {
                     request.setAttribute("errormessage", "Что-то пошло не так, попробуйте еще раз...");
                     resource = "/login.ftl";
                 }
-
             }
-
         }
 
-        request.getRequestDispatcher(resource).forward(request, response);
+        return resource;
     }
 
     private boolean isEmpty(String paramName) {

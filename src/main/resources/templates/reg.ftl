@@ -27,10 +27,6 @@
         <label>Пароль</label>
         <input type="password" name="password">
     </div>
-    <div>
-        <label>Роль</label>
-        <input type="text" name="role">
-    </div>
     <input type="submit" value="Готово">
 </form>
 
