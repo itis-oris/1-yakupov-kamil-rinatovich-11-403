@@ -92,6 +92,26 @@ public class UserRepositoryImpl {
         connection.close();
     }
 
+    public String getUserPasswordByLogin(String login) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getConnection();
+        String password = null;
+        String sql = "select password from accounts where login = ?";
+        PreparedStatement statement = connection.prepareStatement(sql);
+
+        statement.setString(1, login);
+        ResultSet resultSet = statement.executeQuery();
+
+        if (resultSet.next()){
+            password = resultSet.getString("password");
+        }
+
+        resultSet.close();
+        statement.close();
+        connection.close();
+
+        return password;
+    }
+
     private User mapUser(ResultSet resultSet) throws SQLException {
         User user = new User();
         user.setId      (resultSet.getLong  ("account_id"));

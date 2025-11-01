@@ -12,14 +12,18 @@
 
 <form action="/slotSwap/usercheck" method="post">
     <div>
-        <label>Имя пользователя</label>
-        <input type="text" name="username">
+        <label>Логин</label>
+        <input type="text" name="login">
     </div>
     <div>
         <label>Пароль</label>
         <input type="password" name="password">
     </div>
     <input type="submit" value="Вход">
+</form>
+
+<form action="/slotSwap/reg" method="get">
+    <input type="submit" value="Регистрация">
 </form>
 
 </body>

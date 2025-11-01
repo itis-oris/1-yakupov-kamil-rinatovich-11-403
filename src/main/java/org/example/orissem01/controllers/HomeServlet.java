@@ -14,6 +14,7 @@ public class HomeServlet extends HttpServlet {
 
     private final UserService userService = new UserService();
 
+    @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         request.getRequestDispatcher("/home.ftl").forward(request, response);
     }
