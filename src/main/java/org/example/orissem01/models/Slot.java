@@ -6,6 +6,7 @@ public class Slot {
     private String date;
     private String time;
     private String type;
+    private boolean exchange;
 
     public Long getId() {
         return id;
@@ -45,5 +46,25 @@ public class Slot {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public boolean isExchange() {
+        return exchange;
+    }
+
+    public void setExchange(boolean exchange) {
+        this.exchange = exchange;
+    }
+
+    @Override
+    public String toString() {
+        return "Slot{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", date='" + date + '\'' +
+                ", time='" + time + '\'' +
+                ", type='" + type + '\'' +
+                ", exchange=" + exchange +
+                '}';
     }
 }

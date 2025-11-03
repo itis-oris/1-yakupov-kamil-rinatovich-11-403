@@ -133,6 +133,7 @@ public class UserRepositoryImpl {
         statement.setLong  (6, user.getId());
         statement.executeUpdate();
 
+        statement.close();
         connection.commit();
         connection.close();
     }
