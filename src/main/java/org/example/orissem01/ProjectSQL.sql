@@ -86,7 +86,7 @@ create table transactions(
                              from_account_id BIGINT,
                              to_account_id   BIGINT,
                              slot_id         BIGINT,
-                             date            TIMESTAMP,
+                             date            TIMESTAMP default current_timestamp,
                              comment         TEXT,
 --------------------------------------------------
                              CONSTRAINT transaction_id_pk  PRIMARY KEY (transaction_id),
@@ -98,30 +98,3 @@ create table transactions(
                              CONSTRAINT slot_id_nn         CHECK       (slot_id         is not null),
                              CONSTRAINT date_nn            CHECK       (date            is not null)
 );
-
-insert into accounts(login, password, name, surname, role) values ('kamilyakupov25@mail.ru', '$2a$10$qYC8mj5kKvT2OmDRYAaSWuS0HLjJWE.kv/8lRgfCYWIDwZMEcVZNK', 'Камиль', 'Якупов', 'Старший куратор');
-insert into accounts(login, password, name, surname, role) values ('veldyaeva07@gmail.com', '$2a$10$1pQe2D6Cr48MUlWrCpQ1yOfdJZ6Jowp7kluoaEDkkJiH8munSv66C', 'Александра', 'Вельдяева', 'Младший куратор');
-
-insert into slots(date, time, type, exchange) values ('2025-11-01', '12:00:00',  'Рабочий час', false);
-insert into slots(date, time, type, exchange) values ('2025-11-01', '18:00:00', 'Рабочий час', true);
-
-insert into account_slot(account_id, slot_id) values (1000000000000000000, 1000000000000000000);
-insert into account_slot(account_id, slot_id) values (1000000000000000001, 1000000000000000000);
-insert into account_slot(account_id, slot_id) values (1000000000000000001, 1000000000000000001);
-
-insert into records(slot_id, account_id, chats_count, status) values (1000000000000000000, 1000000000000000001, 5, 'Окончена');
-
-insert into transactions(from_account_id, to_account_id, slot_id, date, comment) values (1000000000000000000, 1000000000000000001, 1000000000000000000, '2025-10-31 16:00:00', 'Поменялся, так как не могу выйти в эту смену');
-insert into transactions(from_account_id, to_account_id, slot_id, date, comment) values (1000000000000000001, 1000000000000000000, 1000000000000000000, '2025-10-31 17:00:00', 'Отдала обратно, появились дела');
-
-select s.slot_id, name, date, time, type
-from slots s
-         join account_slot as acs on s.slot_id = acs.slot_id
-where account_id = 1000000000000000000 AND date >= current_date AND time >= current_time
-order by date, time;
-
-select r.record_id, r.slot_id, r.account_id, r.chats_count, r.status, r.comment, s.name, s.date, s.time, s.type
-from slots s
-         join records r on s.slot_id = r.slot_id
-where account_id = 1000000000000000000
-order by date, time;

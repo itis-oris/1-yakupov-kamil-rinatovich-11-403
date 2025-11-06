@@ -8,16 +8,7 @@ public class Slot {
     private String date;
     private String time;
     private String type;
-    private List<User> users;
     private List<Record> records;
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
 
     public List<Record> getRecords() {
         return records;
@@ -75,7 +66,6 @@ public class Slot {
                 ", date='" + date + '\'' +
                 ", time='" + time + '\'' +
                 ", type='" + type + '\'' +
-                ", users=" + users +
                 ", records=" + records +
                 '}';
     }

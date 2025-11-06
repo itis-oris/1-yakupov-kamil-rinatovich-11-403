@@ -5,17 +5,28 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.example.orissem01.services.UserService;
+import org.example.orissem01.services.RecordService;
+import org.example.orissem01.services.TransactonService;
 
 import java.io.IOException;
 
 @WebServlet("/home")
 public class HomeServlet extends HttpServlet {
 
-    private final UserService userService = new UserService();
+    private final RecordService recordService = new RecordService();
+    private final TransactonService transactonService = new TransactonService();
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.getRequestDispatcher("/home.ftl").forward(request, response);
+        String resource = recordService.getExchangedRecords(request);
+        request.getRequestDispatcher(resource).forward(request, response);
+    }
+
+    @Override
+    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        if (request.getParameter("choosedRecordId") != null) {
+            transactonService.addTransaction(request);
+        }
+        doGet(request, response);
     }
 }

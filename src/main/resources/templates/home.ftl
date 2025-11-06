@@ -6,5 +6,54 @@
 <form action="/slotSwap/user" method="get">
     <input type="submit" value="Профиль">
 </form>
-
+<#if isEmptyExchanged??>
+    <div style="color:red">${isEmptyExchanged}</div>
+<#else>
+    <h1>
+        Доступные для обмена смены
+    </h1>
+    <div>
+        <table>
+            <thead>
+            <tr>
+                <th>Тип</th>
+                <th>Дата</th>
+                <th>Время</th>
+                <th>Название</th>
+                <th>Имя владельца</th>
+                <th>Фамилия владельца</th>
+            </tr>
+            </thead>
+            <tbody>
+            <#list records as record>
+                <tr>
+                    <td data-label="Тип">${record.slot.type}</td>
+                    <td data-label="Дата">${record.slot.date}</td>
+                    <td data-label="Время">${record.slot.time}</td>
+                    <td data-label="Название">${record.slot.name!"Отсутствует"}</td>
+                    <td data-label="Имя владельца">${record.user.name}</td>
+                    <td data-label="Фамилия владельца">${record.user.surname}</td>
+                </tr>
+            </#list>
+            </tbody>
+        </table>
+    </div>
+    <form method="post" action="/slotSwap/home">
+        <div>
+            <label>Выбрать смену для передачи</label>
+            <select name="choosedRecordId">
+                <#list records as record>
+                    <option value="${record.id}">${record.slot.type}, ${record.slot.date}, ${record.slot.time}, ${record.slot.name!}, ${record.user.name}, ${record.user.surname} </option>
+                </#list>
+            </select>
+        </div>
+        <div>
+            <label>Введите комментарий</label>
+            <input type="text" name="comment">
+        </div>
+        <div>
+            <input type="submit" value="Взять">
+        </div>
+    </form>
+</#if>
 </html>

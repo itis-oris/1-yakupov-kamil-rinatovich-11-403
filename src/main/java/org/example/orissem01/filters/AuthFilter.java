@@ -17,7 +17,7 @@ public class AuthFilter implements Filter {
 
         if (!checkExcluded(((HttpServletRequest) request).getServletPath())
                 && (session == null || session.getAttribute("userLogin") == null)){
-            ((HttpServletResponse) response).sendRedirect("/slotSwap/login");
+            ((HttpServletResponse) response).sendRedirect("/slotSwap/welcome");
         } else {
             filterChain.doFilter(request, response);
         }
@@ -25,6 +25,6 @@ public class AuthFilter implements Filter {
     }
 
     private static boolean checkExcluded(String resource) {
-        return resource.contains("/login") || resource.contains("/usercheck") || resource.contains("/reg");
+        return resource.contains("/login") || resource.contains("/usercheck") || resource.contains("/reg") || resource.contains("/welcome");
     }
 }

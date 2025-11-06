@@ -15,6 +15,11 @@ public class UserCheckServlet extends HttpServlet {
     private final UserService userService = new UserService();
 
     @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doPost(request, response);
+    }
+
+    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String resource = userService.checkUser(request);
         request.getRequestDispatcher(resource).forward(request, response);

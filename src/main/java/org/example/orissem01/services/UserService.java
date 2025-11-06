@@ -3,6 +3,7 @@ package org.example.orissem01.services;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.example.orissem01.exceptions.NoSuchUserException;
+import org.example.orissem01.models.Record;
 import org.example.orissem01.models.User;
 import org.example.orissem01.repositories.UserRepositoryImpl;
 import org.example.orissem01.utils.Password;
@@ -33,22 +34,14 @@ public class UserService {
         }
     }
 
-    public void addUser(HttpServletRequest request) throws SQLException, ClassNotFoundException {
-        String login = request.getParameter("login");
-        String password = request.getParameter("password");
-        String name = request.getParameter("name");
-        String surname = request.getParameter("surname");
-
-        User user = new User();
-        user.setLogin(login);
-        user.setName(name);
-        user.setSurname(surname);
-        user.setRole("Стажёр");
-
-        BCryptPasswordEncoder bCrypt = new BCryptPasswordEncoder();
-        user.setPassword(bCrypt.encode(password));
-
-        userRepository.addUser(user);
+    public boolean containsSlot(User user, Long slotId) {
+        List<Record> records = user.getRecords();
+        for (Record record: records) {
+            if (record.getSlot().getId().equals(slotId)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public String regUser(HttpServletRequest request) {
@@ -112,7 +105,7 @@ public class UserService {
     public String checkUser(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
 
-        String resource = "/home.ftl";
+        String resource = "/home";
 
         if (session == null || session.getAttribute("userLogin") == null) {
             String login = request.getParameter("login");
@@ -144,6 +137,24 @@ public class UserService {
         }
 
         return resource;
+    }
+
+    private void addUser(HttpServletRequest request) throws SQLException, ClassNotFoundException {
+        String login = request.getParameter("login");
+        String password = request.getParameter("password");
+        String name = request.getParameter("name");
+        String surname = request.getParameter("surname");
+
+        User user = new User();
+        user.setLogin(login);
+        user.setName(name);
+        user.setSurname(surname);
+        user.setRole("Стажёр");
+
+        BCryptPasswordEncoder bCrypt = new BCryptPasswordEncoder();
+        user.setPassword(bCrypt.encode(password));
+
+        userRepository.addUser(user);
     }
 
     private boolean isEmptyParam(String paramName) {

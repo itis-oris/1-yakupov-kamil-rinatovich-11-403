@@ -16,7 +16,7 @@
 <form action="/slotSwap/user/records" method="get">
     <input type="submit" value="Посмотреть мои смены">
 </form>
-<form action="/slotSwap/logout" method="get">
+<form action="/slotSwap/login" method="get">
     <input type="submit" value="Выйти">
 </form>
 <form action="/slotSwap/home" method="get">

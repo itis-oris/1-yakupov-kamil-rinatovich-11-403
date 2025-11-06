@@ -1,6 +1,7 @@
 package org.example.orissem01.models;
 
 import java.util.List;
+import java.util.Objects;
 
 public class User {
     private Long id;
@@ -9,16 +10,7 @@ public class User {
     private String name;
     private String surname;
     private String role;
-    private List<Slot> slots;
     private List<Record> records;
-
-    public List<Slot> getSlots() {
-        return slots;
-    }
-
-    public void setSlots(List<Slot> slots) {
-        this.slots = slots;
-    }
 
     public List<Record> getRecords() {
         return records;
@@ -77,6 +69,18 @@ public class User {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(login, user.login);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(login);
+    }
+
+    @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
@@ -85,7 +89,6 @@ public class User {
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", role='" + role + '\'' +
-                ", slots=" + slots +
                 ", records=" + records +
                 '}';
     }

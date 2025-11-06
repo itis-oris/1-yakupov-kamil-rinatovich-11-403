@@ -10,7 +10,7 @@ import org.example.orissem01.services.RecordService;
 import java.io.IOException;
 
 @WebServlet("/user/records")
-public class UserSlotsServlet extends HttpServlet {
+public class UserRecordsServlet extends HttpServlet {
     private final RecordService recordService = new RecordService();
 
     @Override
@@ -21,7 +21,10 @@ public class UserSlotsServlet extends HttpServlet {
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String resource = recordService.updateUserRecord(request);
+        String resource = "/userRecords.ftl";
+        if (request.getParameter("choosedRecordId") != null) {
+            resource = recordService.updateUserRecord(request);
+        }
         recordService.getUserRecords(request);
         request.getRequestDispatcher(resource).forward(request, response);
     }

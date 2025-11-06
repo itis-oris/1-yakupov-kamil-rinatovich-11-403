@@ -59,29 +59,6 @@ public class UserRepositoryImpl {
         return Optional.ofNullable(user);
     }
 
-    public Optional<User> findUserById(Long id) throws SQLException, ClassNotFoundException {
-        Connection connection = DBConnection.getConnection();
-        String sql = """
-            select account_id, login, password, name, surname, role
-            from accounts
-            where account_id = ?
-            """;
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setLong(1, id);
-        ResultSet resultSet = statement.executeQuery();
-
-        User user = null;
-        if(resultSet.next()){
-            user = mapUser(resultSet);
-        }
-
-        statement.close();
-        resultSet.close();
-        connection.close();
-
-        return Optional.ofNullable(user);
-    }
-
     public void addUser(User user) throws SQLException, ClassNotFoundException{
         Connection connection = DBConnection.getConnection();
         connection.setAutoCommit(false);
@@ -204,31 +181,6 @@ public class UserRepositoryImpl {
         return record;
     }
 
-    private List<Slot> getSlotsByUserId(Long userId) throws SQLException, ClassNotFoundException {
-        Connection connection = DBConnection.getConnection();
-        List<Slot> slots = new ArrayList<>();
-        String sql = """
-            select s.slot_id, name, date, time, type
-            from slots s
-            join account_slot as acs on s.slot_id = acs.slot_id
-            where account_id = ?
-            order by date, time
-            """;
-        PreparedStatement statement = connection.prepareStatement(sql);
-        statement.setLong(1, userId);
-        ResultSet resultSet = statement.executeQuery();
-
-        while(resultSet.next()){
-            slots.add(mapSlot(resultSet));
-        }
-
-        statement.close();
-        resultSet.close();
-        connection.close();
-
-        return slots;
-    }
-
     private User mapUser(ResultSet resultSet) throws SQLException, ClassNotFoundException {
         User user = new User();
         Long id = resultSet.getLong  ("account_id");
@@ -238,7 +190,6 @@ public class UserRepositoryImpl {
         user.setName    (resultSet.getString("name"));
         user.setSurname (resultSet.getString("surname"));
         user.setRole    (resultSet.getString("role"));
-        user.setSlots(getSlotsByUserId(id));
         user.setRecords(getRecordsByUserId(id));
         return user;
     }

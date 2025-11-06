@@ -123,20 +123,6 @@ public class SlotRepositoryImpl {
         return records;
     }
 
-    private Record mapRecord(ResultSet resultSet) throws SQLException, ClassNotFoundException {
-        Record record = new Record();
-        User user = mapUser(resultSet);
-
-        record.setId(resultSet.getLong ("account_slot_id"));
-
-        record.setUser(user);
-
-        record.setChatsCount(resultSet.getInt("chats_count"));
-        record.setStatus(resultSet.getString("status"));
-        record.setComment(resultSet.getString("comment"));
-        return record;
-    }
-
     private List<User> getUsersBySlotId(Long slotId) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getConnection();
         List<User> users = new ArrayList<>();
@@ -169,9 +155,22 @@ public class SlotRepositoryImpl {
         slot.setDate    (resultSet.getString("date"));
         slot.setTime    (resultSet.getString("time"));
         slot.setType    (resultSet.getString("type"));
-        slot.setUsers(getUsersBySlotId(id));
         slot.setRecords(getRecordsBySlotId(id));
         return slot;
+    }
+
+    private Record mapRecord(ResultSet resultSet) throws SQLException, ClassNotFoundException {
+        Record record = new Record();
+        User user = mapUser(resultSet);
+
+        record.setId(resultSet.getLong ("account_slot_id"));
+
+        record.setUser(user);
+
+        record.setChatsCount(resultSet.getInt("chats_count"));
+        record.setStatus(resultSet.getString("status"));
+        record.setComment(resultSet.getString("comment"));
+        return record;
     }
 
     private User mapUser(ResultSet resultSet) throws SQLException, ClassNotFoundException {
