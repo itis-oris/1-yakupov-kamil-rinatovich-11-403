@@ -167,6 +167,17 @@ public class UserService {
         return resource;
     }
 
+    public String deleteUser(HttpServletRequest request) {
+        String resource = "/admin/users";
+        String login = request.getParameter("selectedUserLogin");
+        try {
+            userRepository.deleteUserByLogin(login);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return resource;
+    }
+
     private void addUser(HttpServletRequest request) throws SQLException, ClassNotFoundException {
         String login = request.getParameter("login");
         String password = request.getParameter("password");

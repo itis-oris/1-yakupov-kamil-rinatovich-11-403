@@ -64,4 +64,17 @@ public class Transaction {
     public void setComment(String comment) {
         this.comment = comment;
     }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "id=" + id +
+                ", fromUser=" + fromUser +
+                ", toUser=" + toUser +
+                ", slot=" + slot +
+                ", date='" + date + '\'' +
+                ", time='" + time + '\'' +
+                ", comment='" + comment + '\'' +
+                '}';
+    }
 }

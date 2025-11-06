@@ -63,8 +63,8 @@ create table account_slot(
                              slot_id         BIGINT,
 --------------------------------------------------
                              CONSTRAINT account_slot_id_pk PRIMARY KEY (account_slot_id),
-                             CONSTRAINT account_id_fk      FOREIGN KEY (account_id)       REFERENCES accounts(account_id),
-                             CONSTRAINT slot_id_fk         FOREIGN KEY (slot_id)          REFERENCES slots(slot_id),
+                             CONSTRAINT account_id_fk      FOREIGN KEY (account_id)       REFERENCES accounts(account_id) ON DELETE CASCADE,
+                             CONSTRAINT slot_id_fk         FOREIGN KEY (slot_id)          REFERENCES slots(slot_id) ON DELETE CASCADE,
                              CONSTRAINT account_id_nn      CHECK       (account_id is not null),
                              CONSTRAINT slot_id_nn         CHECK       (slot_id    is not null),
                              CONSTRAINT account_slot_uq    UNIQUE      (account_id, slot_id)
@@ -78,7 +78,7 @@ create table records(
 --------------------------------------------------
                         CONSTRAINT record_id_pk PRIMARY KEY (account_slot_id),
                         CONSTRAINT status_nn          CHECK       (status is not null),
-                        CONSTRAINT account_slot_id_fk FOREIGN KEY (account_slot_id) REFERENCES account_slot(account_slot_id)
+                        CONSTRAINT account_slot_id_fk FOREIGN KEY (account_slot_id) REFERENCES account_slot(account_slot_id) ON DELETE CASCADE
 );
 
 create table transactions(
@@ -90,9 +90,9 @@ create table transactions(
                              comment         TEXT,
 --------------------------------------------------
                              CONSTRAINT transaction_id_pk  PRIMARY KEY (transaction_id),
-                             CONSTRAINT from_account_id_fk FOREIGN KEY (from_account_id)  REFERENCES accounts(account_id),
-                             CONSTRAINT to_account_id_fk   FOREIGN KEY (to_account_id)    REFERENCES accounts(account_id),
-                             CONSTRAINT slot_id_fk         FOREIGN KEY (slot_id)          REFERENCES slots(slot_id),
+                             CONSTRAINT from_account_id_fk FOREIGN KEY (from_account_id)  REFERENCES accounts(account_id) ON DELETE CASCADE,
+                             CONSTRAINT to_account_id_fk   FOREIGN KEY (to_account_id)    REFERENCES accounts(account_id) ON DELETE CASCADE,
+                             CONSTRAINT slot_id_fk         FOREIGN KEY (slot_id)          REFERENCES slots(slot_id) ON DELETE CASCADE,
                              CONSTRAINT from_account_id_nn CHECK       (from_account_id is not null),
                              CONSTRAINT to_account_id_nn   CHECK       (to_account_id   is not null),
                              CONSTRAINT slot_id_nn         CHECK       (slot_id         is not null),

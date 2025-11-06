@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="ru">
-<div style="color:red">${errormessage!}</div>
-<div style="color:greenyellow">${successmessage!}</div>
-<form action="/slotSwap/admin/user" method="post">
-    <div>
-        <label>Имя</label>
-        <label>${selectedUser.name}</label>
-    </div>
-    <div>
-        <label>Фамилия</label>
-        <label>${selectedUser.surname}</label>
-    </div>
+<div>
+    <label>Имя</label>
+    <label>${selectedUser.name}</label>
+</div>
+<div>
+    <label>Фамилия</label>
+    <label>${selectedUser.surname}</label>
+</div>
+<form action="/slotSwap/admin/user/update" method="post">
+
     <div>
         <label>Статус</label>
         <select name="selectedUserRole">
@@ -37,5 +36,9 @@
         </select>
     </div>
     <input type="submit" value="Готово">
+</form>
+<form action="/slotSwap/admin/user/delete" method="post">
+    <input type = 'hidden' name = 'selectedUserLogin' value = "${selectedUser.login}">
+    <input type="submit" value="Удалить пользователя">
 </form>
 </html>

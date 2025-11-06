@@ -10,23 +10,20 @@ import org.example.orissem01.services.UserService;
 
 import java.io.IOException;
 
-@WebServlet("/admin/user")
-public class AdminUserServlet extends HttpServlet {
+@WebServlet("/admin/user/update")
+public class AdminUserUpdateServlet extends HttpServlet {
 
     private final UserService userService = new UserService();
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        HttpSession session = request.getSession(false);
-        String login = request.getParameter("selectedUserLogin");
-        session.setAttribute("selectedUserLogin", login);
-        request.setAttribute("selectedUser", userService.findUserByLogin(login));
-        request.getRequestDispatcher("/adminUser.ftl").forward(request, response);
+        doPost(request, response);
     }
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        doGet(request, response);
+        String resource = userService.updateUserRole(request);
+        request.getRequestDispatcher(resource).forward(request, response);
     }
 
 }

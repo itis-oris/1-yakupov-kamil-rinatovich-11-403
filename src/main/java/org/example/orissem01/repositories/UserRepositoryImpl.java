@@ -140,6 +140,24 @@ public class UserRepositoryImpl {
         connection.close();
     }
 
+    public void deleteUserByLogin(String login) throws SQLException, ClassNotFoundException {
+        Connection connection = DBConnection.getConnection();
+        connection.setAutoCommit(false);
+
+        String sql = """
+            delete from accounts
+            where login = ?;
+            """;
+
+        PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, login);
+        statement.executeUpdate();
+
+        statement.close();
+        connection.commit();
+        connection.close();
+    }
+
     private List<Record> getRecordsByUserId(Long userId) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getConnection();
         List<Record> records = new ArrayList<>();

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ru">
+<h1>
+    История обменов
+</h1>
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>Кто отдал</th>
+            <th>Кто взял</th>
+            <th>Что обменяли</th>
+            <th>Дата и время обмена</th>
+            <th>Комментарий обмена</th>
+        </tr>
+        </thead>
+        <tbody>
+        <#list transactions as t>
+            <tr>
+                <td data-label="Кто отдал">${t.fromUser.name} ${t.fromUser.surname}</td>
+                <td data-label="Кто взял">${t.toUser.name} ${t.toUser.surname}</td>
+                <td data-label="Что обменяли">${t.slot.type} ${t.slot.date} ${t.slot.time}</td>
+                <td data-label="Дата и время обмена">${t.date} ${t.time}</td>
+                <td data-label="Комментарий обмена">${t.comment}</td>
+            </tr>
+        </#list>
+        </tbody>
+    </table>
+</div>
+</html>
