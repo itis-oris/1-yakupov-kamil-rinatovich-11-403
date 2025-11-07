@@ -3,6 +3,8 @@ package org.example.orissem01.repositories;
 import org.example.orissem01.models.Record;
 import org.example.orissem01.models.Slot;
 import org.example.orissem01.models.User;
+import org.example.orissem01.repositories.interfaces.IMapModel;
+import org.example.orissem01.repositories.interfaces.IUserRepository;
 import org.example.orissem01.utils.DBConnection;
 
 import java.sql.Connection;
@@ -13,13 +15,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class UserRepositoryImpl {
+public class UserRepositoryImpl implements IUserRepository, IMapModel {
 
-    public List<User> getUsers() throws SQLException, ClassNotFoundException {
+    @Override
+    public List<User> getAll() throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getConnection();
         List<User> users = new ArrayList<>();
         String sql = """
-                        select account_id, login, password, name, surname, role
+                        select account_id a_account_id, login a_login, password a_password,
+                               name a_name, surname a_surname, role a_role
                         from accounts
                         """;
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -36,10 +40,12 @@ public class UserRepositoryImpl {
         return users;
     }
 
+    @Override
     public Optional<User> findUserByLogin(String login) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getConnection();
         String sql = """
-            select account_id, login, password, name, surname, role
+            select account_id a_account_id, login a_login, password a_password,
+                   name a_name, surname a_surname, role a_role
             from accounts
             where login = ?
             """;
@@ -59,6 +65,7 @@ public class UserRepositoryImpl {
         return Optional.ofNullable(user);
     }
 
+    @Override
     public void addUser(User user) throws SQLException, ClassNotFoundException{
         Connection connection = DBConnection.getConnection();
         connection.setAutoCommit(false);
@@ -96,6 +103,7 @@ public class UserRepositoryImpl {
         connection.close();
     }
 
+    @Override
     public String getUserPasswordByLogin(String login) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getConnection();
         String password = null;
@@ -116,6 +124,7 @@ public class UserRepositoryImpl {
         return password;
     }
 
+    @Override
     public void updateUser(User user) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getConnection();
         connection.setAutoCommit(false);
@@ -140,6 +149,7 @@ public class UserRepositoryImpl {
         connection.close();
     }
 
+    @Override
     public void deleteUserByLogin(String login) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getConnection();
         connection.setAutoCommit(false);
@@ -158,12 +168,30 @@ public class UserRepositoryImpl {
         connection.close();
     }
 
-    private List<Record> getRecordsByUserId(Long userId) throws SQLException, ClassNotFoundException {
+    @Override
+    public Record mapRecord(ResultSet resultSet) throws SQLException {
+        Record record = mapRecordDefault(resultSet);
+        Slot slot = mapSlotDefault(resultSet);
+        record.setSlot(slot);
+        return record;
+    }
+
+    @Override
+    public User mapUser(ResultSet resultSet) throws SQLException, ClassNotFoundException {
+        User user = mapUserDefault(resultSet);
+        user.setRecords(getRecordsByUserId(user.getId()));
+        return user;
+    }
+
+    @Override
+    public List<Record> getRecordsByUserId(Long userId) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getConnection();
         List<Record> records = new ArrayList<>();
         String sql = """
-            select r.account_slot_id, r.chats_count, r.status, r.comment,
-                   s.slot_id, s.name, s.date, s.time, s.type
+            select r.account_slot_id r_account_slot_id, r.chats_count r_chats_count,
+                   r.status r_status, r.comment r_comment,
+                   s.slot_id s_slot_id, s.name s_name, s.date s_date, s.time s_time,
+                   s.type s_type
             from slots s
             join account_slot acs on s.slot_id = acs.slot_id
             join records r on acs.account_slot_id = r.account_slot_id
@@ -183,42 +211,5 @@ public class UserRepositoryImpl {
         connection.close();
 
         return records;
-    }
-
-    private Record mapRecord(ResultSet resultSet) throws SQLException {
-        Record record = new Record();
-        Slot slot = mapSlot(resultSet);
-
-        record.setId(resultSet.getLong ("account_slot_id"));
-
-        record.setSlot(slot);
-
-        record.setChatsCount(resultSet.getInt("chats_count"));
-        record.setStatus(resultSet.getString("status"));
-        record.setComment(resultSet.getString("comment"));
-        return record;
-    }
-
-    private User mapUser(ResultSet resultSet) throws SQLException, ClassNotFoundException {
-        User user = new User();
-        Long id = resultSet.getLong  ("account_id");
-        user.setId      (id);
-        user.setLogin   (resultSet.getString("login"));
-        user.setPassword(resultSet.getString("password"));
-        user.setName    (resultSet.getString("name"));
-        user.setSurname (resultSet.getString("surname"));
-        user.setRole    (resultSet.getString("role"));
-        user.setRecords(getRecordsByUserId(id));
-        return user;
-    }
-
-    private Slot mapSlot(ResultSet resultSet) throws SQLException {
-        Slot slot = new Slot();
-        slot.setId      (resultSet.getLong  ("slot_id"));
-        slot.setName    (resultSet.getString("name"));
-        slot.setDate    (resultSet.getString("date"));
-        slot.setTime    (resultSet.getString("time"));
-        slot.setType    (resultSet.getString("type"));
-        return slot;
     }
 }

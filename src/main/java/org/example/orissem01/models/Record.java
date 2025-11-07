@@ -56,15 +56,4 @@ public class Record {
         this.comment = comment;
     }
 
-    @Override
-    public String toString() {
-        return "Record{" +
-                "id=" + id +
-                ", user=" + user +
-                ", slot=" + slot +
-                ", chatsCount=" + chatsCount +
-                ", status='" + status + '\'' +
-                ", comment='" + comment + '\'' +
-                '}';
-    }
 }

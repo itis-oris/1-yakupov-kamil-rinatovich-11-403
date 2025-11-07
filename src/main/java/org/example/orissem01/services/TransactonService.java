@@ -5,17 +5,17 @@ import org.example.orissem01.models.Record;
 import org.example.orissem01.models.Slot;
 import org.example.orissem01.models.Transaction;
 import org.example.orissem01.models.User;
-import org.example.orissem01.repositories.TransactionRepository;
+import org.example.orissem01.repositories.TransactionRepositoryImpl;
 
 import java.util.List;
 
 public class TransactonService {
-    private final TransactionRepository transactionRepository;
+    private final TransactionRepositoryImpl transactionRepository;
     private final UserService userService;
     private final RecordService recordService;
 
     public TransactonService(){
-        this.transactionRepository = new TransactionRepository();
+        this.transactionRepository = new TransactionRepositoryImpl();
         this.userService = new UserService();
         this.recordService = new RecordService();
     }

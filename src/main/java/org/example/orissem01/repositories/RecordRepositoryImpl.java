@@ -3,6 +3,8 @@ package org.example.orissem01.repositories;
 import org.example.orissem01.models.Record;
 import org.example.orissem01.models.Slot;
 import org.example.orissem01.models.User;
+import org.example.orissem01.repositories.interfaces.IRecordRepository;
+import org.example.orissem01.repositories.interfaces.IMapModel;
 import org.example.orissem01.utils.DBConnection;
 
 import java.sql.Connection;
@@ -13,18 +15,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class RecordRepository {
+public class RecordRepositoryImpl implements IRecordRepository, IMapModel {
 
+    @Override
     public Optional<Record> findRecordById(Long id) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getConnection();
         String sql = """
-            select r.account_slot_id, chats_count, status, comment,
-                               a.account_id, login, password, a.name as a_name, surname, role,
-                               s.slot_id, s.name as s_name, date, time, type
-                        from records r
-                        join public.account_slot acs on r.account_slot_id = acs.account_slot_id
-                        join public.accounts a on a.account_id = acs.account_id
-                        join public.slots s on acs.slot_id = s.slot_id
+            select r.account_slot_id r_account_slot_id, r.chats_count r_chats_count,
+                   r.status r_status, r.comment r_comment,
+                   a.account_id a_account_id, a.login a_login, a.password a_password, a.name a_name,
+                   a.surname a_surname, a.role a_role,
+                   s.slot_id s_slot_id, s.name s_name, s.date s_date, s.time s_time, s.type s_type
+            from records r
+            join public.account_slot acs on r.account_slot_id = acs.account_slot_id
+            join public.accounts a on a.account_id = acs.account_id
+            join public.slots s on acs.slot_id = s.slot_id
             where r.account_slot_id = ?
             """;
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -43,13 +48,16 @@ public class RecordRepository {
         return Optional.ofNullable(record);
     }
 
+    @Override
     public List<Record> getRecords() throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getConnection();
         List<Record> records = new ArrayList<>();
         String sql = """
-                        select r.account_slot_id, chats_count, status, comment,
-                               a.account_id, login, password, a.name as a_name, surname, role,
-                               s.slot_id, s.name as s_name, date, time, type
+                        select r.account_slot_id r_account_slot_id, r.chats_count r_chats_count,
+                               r.status r_status, r.comment r_comment,
+                               a.account_id a_account_id, a.login a_login, a.password a_password, a.name a_name,
+                               a.surname a_surname, a.role a_role,
+                               s.slot_id s_slot_id, s.name s_name, s.date s_date, s.time s_time, s.type s_type
                         from records r
                         join public.account_slot acs on r.account_slot_id = acs.account_slot_id
                         join public.accounts a on a.account_id = acs.account_id
@@ -69,6 +77,7 @@ public class RecordRepository {
         return records;
     }
 
+    @Override
     public void updateRecord(Record record) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getConnection();
         connection.setAutoCommit(false);
@@ -90,42 +99,13 @@ public class RecordRepository {
         connection.close();
     }
 
-    private Record mapRecord(ResultSet resultSet) throws SQLException, ClassNotFoundException {
-        Record record = new Record();
-        User user = mapUser(resultSet);
-        Slot slot = mapSlot(resultSet);
-
-        record.setId(resultSet.getLong ("account_slot_id"));
-
+    @Override
+    public Record mapRecord(ResultSet resultSet) throws SQLException, ClassNotFoundException {
+        Record record = mapRecordDefault(resultSet);
+        User user = mapUserDefault(resultSet);
+        Slot slot = mapSlotDefault(resultSet);
         record.setUser(user);
         record.setSlot(slot);
-
-        record.setChatsCount(resultSet.getInt("chats_count"));
-        record.setStatus(resultSet.getString("status"));
-        record.setComment(resultSet.getString("comment"));
         return record;
     }
-
-    private User mapUser(ResultSet resultSet) throws SQLException, ClassNotFoundException {
-        User user = new User();
-        Long id = resultSet.getLong  ("account_id");
-        user.setId      (id);
-        user.setLogin   (resultSet.getString("login"));
-        user.setPassword(resultSet.getString("password"));
-        user.setName    (resultSet.getString("a_name"));
-        user.setSurname (resultSet.getString("surname"));
-        user.setRole    (resultSet.getString("role"));
-        return user;
-    }
-
-    private Slot mapSlot(ResultSet resultSet) throws SQLException {
-        Slot slot = new Slot();
-        slot.setId      (resultSet.getLong  ("slot_id"));
-        slot.setName    (resultSet.getString("s_name"));
-        slot.setDate    (resultSet.getString("date"));
-        slot.setTime    (resultSet.getString("time"));
-        slot.setType    (resultSet.getString("type"));
-        return slot;
-    }
-
 }

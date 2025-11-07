@@ -58,15 +58,4 @@ public class Slot {
         this.type = type;
     }
 
-    @Override
-    public String toString() {
-        return "Slot{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", date='" + date + '\'' +
-                ", time='" + time + '\'' +
-                ", type='" + type + '\'' +
-                ", records=" + records +
-                '}';
-    }
 }

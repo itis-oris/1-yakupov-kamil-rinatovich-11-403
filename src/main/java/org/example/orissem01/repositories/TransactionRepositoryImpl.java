@@ -3,6 +3,8 @@ package org.example.orissem01.repositories;
 import org.example.orissem01.models.Slot;
 import org.example.orissem01.models.Transaction;
 import org.example.orissem01.models.User;
+import org.example.orissem01.repositories.interfaces.IMapModel;
+import org.example.orissem01.repositories.interfaces.ITransactionRepository;
 import org.example.orissem01.utils.DBConnection;
 
 import java.sql.Connection;
@@ -12,28 +14,29 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransactionRepository {
+public class TransactionRepositoryImpl implements ITransactionRepository, IMapModel {
 
+    @Override
     public List<Transaction> getTransactions() throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getConnection();
         List<Transaction> transactions = new ArrayList<>();
         String sql = """
-             select t.transaction_id Ttransaction_id, t.from_account_id Tfrom_account_id,
-                    t.to_account_id Tto_account_id, t.slot_id Tslot_id,
-                    t.date Tdate, t.time Ttime, t.comment Tcomment,
+             select t.transaction_id t_transaction_id, t.from_account_id t_from_account_id,
+                    t.to_account_id t_to_account_id, t.slot_id t_slot_id,
+                    t.date t_date, t.time t_time, t.comment t_comment,
              
-                    a.account_id Aaccount_id, a.login Alogin, a.password Apassword,
-                    a.name Aname, a.surname Asurname, a.role Arole,
+                    a.account_id a_account_id, a.login a_login, a.password a_password,
+                    a.name a_name, a.surname a_surname, a.role a_role,
              
-                    b.account_id Baccount_id, b.login Blogin, b.password Bpassword,
-                    b.name Bname, b.surname Bsurname, b.role Brole,
+                    b.account_id b_account_id, b.login b_login, b.password b_password,
+                    b.name b_name, b.surname b_surname, b.role b_role,
              
-                    s.slot_id Sslot_id, s.name Sname, s.date Sdate, s.time Stime, s.type Stype
+                    s.slot_id s_slot_id, s.name s_name, s.date s_date, s.time s_time, s.type s_type
                     from transactions t
                     join accounts a on t.from_account_id = a.account_id
                     join accounts b on t.to_account_id = b.account_id
                     join slots s on t.slot_id = s.slot_id
-                    """;
+             """;
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
 
@@ -48,7 +51,8 @@ public class TransactionRepository {
         return transactions;
     }
 
-    public void addTransaction(Transaction transaction) throws SQLException, ClassNotFoundException{
+    @Override
+    public void addTransaction(Transaction transaction) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getConnection();
         connection.setAutoCommit(false);
 
@@ -134,36 +138,25 @@ public class TransactionRepository {
         connection.close();
     }
 
-    private Transaction mapTransaction(ResultSet resultSet) throws SQLException {
+    @Override
+    public Transaction mapTransaction(ResultSet resultSet) throws SQLException {
         Transaction transaction = new Transaction();
-        User fromUser = new User();
+        User fromUser = mapUserDefault(resultSet);
         User toUser = new User();
-        Slot slot = new Slot();
+        Slot slot = mapSlotDefault(resultSet);
 
-        fromUser.setId(resultSet.getLong("Aaccount_id"));
-        fromUser.setLogin(resultSet.getString("Alogin"));
-        fromUser.setPassword(resultSet.getString("Apassword"));
-        fromUser.setName(resultSet.getString("Aname"));
-        fromUser.setSurname(resultSet.getString("Asurname"));
-        fromUser.setRole(resultSet.getString("Arole"));
+        toUser.setId(resultSet.getLong("b_account_id"));
+        toUser.setLogin(resultSet.getString("b_login"));
+        toUser.setPassword(resultSet.getString("b_password"));
+        toUser.setName(resultSet.getString("b_name"));
+        toUser.setSurname(resultSet.getString("b_surname"));
+        toUser.setRole(resultSet.getString("b_role"));
 
-        toUser.setId(resultSet.getLong("Baccount_id"));
-        toUser.setLogin(resultSet.getString("Blogin"));
-        toUser.setPassword(resultSet.getString("Bpassword"));
-        toUser.setName(resultSet.getString("Bname"));
-        toUser.setSurname(resultSet.getString("Bsurname"));
-        toUser.setRole(resultSet.getString("Brole"));
+        String date = resultSet.getString("t_date");
+        String time = resultSet.getString("t_time");
+        String comment = resultSet.getString("t_comment");
 
-        slot.setId(resultSet.getLong("Sslot_id"));
-        slot.setName(resultSet.getString("Sname"));
-        slot.setDate(resultSet.getString("Sdate"));
-        slot.setTime(resultSet.getString("Stime"));
-        slot.setType(resultSet.getString("Stype"));
-
-        String date = resultSet.getString("Tdate");
-        String time = resultSet.getString("Ttime");
-        String comment = resultSet.getString("Tcomment");
-
+        transaction.setId(resultSet.getLong("t_transaction_id"));
         transaction.setFromUser(fromUser);
         transaction.setToUser(toUser);
         transaction.setSlot(slot);

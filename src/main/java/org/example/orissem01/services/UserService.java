@@ -22,7 +22,7 @@ public class UserService {
     public void getAll(HttpServletRequest request){
         List<User> users = null;
         try {
-            users = userRepository.getUsers();
+            users = userRepository.getAll();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

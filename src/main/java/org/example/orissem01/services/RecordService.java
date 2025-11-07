@@ -4,7 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.example.orissem01.exceptions.NoSuchRecordException;
 import org.example.orissem01.models.Record;
 import org.example.orissem01.models.User;
-import org.example.orissem01.repositories.RecordRepository;
+import org.example.orissem01.repositories.RecordRepositoryImpl;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -12,11 +12,11 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class RecordService {
-    private final RecordRepository recordRepository;
+    private final RecordRepositoryImpl recordRepository;
     private final UserService userService;
 
     public RecordService() {
-        this.recordRepository = new RecordRepository();
+        this.recordRepository = new RecordRepositoryImpl();
         this.userService = new UserService();
     }
 
