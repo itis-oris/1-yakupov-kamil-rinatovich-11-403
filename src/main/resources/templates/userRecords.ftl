@@ -1,5 +1,23 @@
 <!DOCTYPE html>
 <html lang="ru">
+<head>
+    <title>Records</title>
+    <link rel="stylesheet" href="/slotSwap/static/css/common.css">
+
+</head>
+
+<body>
+<div class="up-panel">
+    <div class="div-up-panel">
+        <a href="/slotSwap/home" class="home-button"></a>
+    </div>
+    <div class="div-up-panel">
+        <span class="up-panel-name">SLOT SWAP</span>
+    </div>
+    <div class="div-up-panel">
+        <a href="/slotSwap/user" class="profile-button"></a>
+    </div>
+</div>
 <form method="post" action="/slotSwap/user/records">
     <div>
         <label>Выбрать тип смены</label>
@@ -115,5 +133,5 @@
 <form action="/slotSwap/home" method="get">
     <input type="submit" value="Домой">
 </form>
-
+</body>
 </html>

@@ -1,23 +1,35 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Тест Freemarker</title>
-    <meta name="description" content="Тест Freemarker">
+    <title>Login</title>
+    <link rel="stylesheet" href="/slotSwap/static/css/common.css">
 
 </head>
 <body>
-
+<div class="up-panel">
+    <div class="div-up-panel">
+        <a href="/slotSwap/home" class="home-button"></a>
+    </div>
+    <div class="div-up-panel">
+        <span class="up-panel-name">SLOT SWAP</span>
+    </div>
+    <div class="div-up-panel">
+    </div>
+</div>
 <div style="color:red">${errormessage!}</div>
 
 <form action="/slotSwap/usercheck" method="post">
     <div>
         <label>Логин</label>
-        <input type="text" name="login">
+        <label>
+            <input type="text" name="login" class = "input-field">
+        </label>
     </div>
     <div>
         <label>Пароль</label>
-        <input type="password" name="password">
+        <label>
+            <input type="password" name="password">
+        </label>
     </div>
     <input type="submit" value="Вход">
 </form>

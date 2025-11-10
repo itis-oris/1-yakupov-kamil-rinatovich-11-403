@@ -1,0 +1,65 @@
+body{
+    margin: 0;
+}
+.up-panel{
+    position: sticky;
+    top: 0;
+    background-color: black;
+    height: 6vh;
+    display: flex;
+    justify-content: space-between;
+}
+.home-button{
+    width: 6vh;
+    height: 6vh;
+    background-image: url('/slotSwap/static/img/homelogo.jpg');
+    display: block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.home-button:hover{
+    background-image: url('/slotSwap/static/img/homelogohover.jpg');
+}
+
+.div-up-panel{
+    display: flex;
+    min-height: 6vh;
+    min-width: 6vh;
+    text-align: center;
+    align-items: center;
+}
+
+.up-panel-name{
+    font-size: 4vh;
+    color: white;
+    font-weight: bold;
+    letter-spacing: 2px;
+    font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+}
+
+.profile-button{
+    /*Только для этой картинки*/
+    width: 5vh;
+    height: 5vh;
+    background-image: url('/slotSwap/static/img/profile.jpg');
+    display: block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.profile-button:hover{
+    background-image: url('/slotSwap/static/img/profilehover.jpg');
+}
+
+.input-field {
+    font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    font-weight: 150;
+    color: black;
+    background-color: white;
+    border-radius: 20px;
+    border: 5px black;
+    width: 50px;
+    height: 250px;
+    display: block;
+}

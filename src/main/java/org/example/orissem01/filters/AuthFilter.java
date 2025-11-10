@@ -25,6 +25,8 @@ public class AuthFilter implements Filter {
     }
 
     private static boolean checkExcluded(String resource) {
-        return resource.contains("/login") || resource.contains("/usercheck") || resource.contains("/reg") || resource.contains("/welcome");
+        return resource.contains("/login") || resource.contains("/usercheck")
+                || resource.contains("/reg") || resource.contains("/welcome")
+                || resource.contains(".jpg") || resource.contains(".css");
     }
 }

@@ -1,5 +1,23 @@
 <!DOCTYPE html>
 <html lang="ru">
+<head>
+    <title>Transactions</title>
+    <link rel="stylesheet" href="/slotSwap/static/css/common.css">
+
+</head>
+<body>
+<div class="up-panel">
+    <div class="div-up-panel">
+        <a href="/slotSwap/home" class="home-button"></a>
+    </div>
+    <div class="div-up-panel">
+        <span class="up-panel-name">SLOT SWAP</span>
+    </div>
+    <div class="div-up-panel">
+        <a href="/slotSwap/user" class="profile-button"></a>
+    </div>
+</div>
+
 <h1>
     История обменов
 </h1>
@@ -27,4 +45,5 @@
         </tbody>
     </table>
 </div>
+</body>
 </html>

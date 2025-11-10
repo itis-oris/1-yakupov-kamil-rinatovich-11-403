@@ -1,13 +1,21 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <title>Регистрация</title>
-    <meta name="description" content="Регистрация">
+    <title>Registration</title>
+    <link rel="stylesheet" href="/slotSwap/static/css/common.css">
 
 </head>
 <body>
-
+<div class="up-panel">
+    <div class="div-up-panel">
+        <a href="/slotSwap/home" class="home-button"></a>
+    </div>
+    <div class="div-up-panel">
+        <span class="up-panel-name">SLOT SWAP</span>
+    </div>
+    <div class="div-up-panel">
+    </div>
+</div>
 <div style="color:red">${errormessage!}</div>
 
 <form action="/slotSwap/reg" method="post">
