@@ -3,6 +3,9 @@
 <head>
     <title>User Editor</title>
     <link rel="stylesheet" href="/slotSwap/static/css/up-panel.css">
+    <link rel="stylesheet" href="/slotSwap/static/css/input.css">
+    <link rel="stylesheet" href="/slotSwap/static/css/card.css">
+    <link rel="stylesheet" href="/slotSwap/static/css/profile.css">
 
 </head>
 <body>
@@ -17,46 +20,45 @@
         <a href="/slotSwap/user" class="profile-button"></a>
     </div>
 </div>
-<div>
-    <label>Имя</label>
-    <label>${selectedUser.name}</label>
-</div>
-<div>
-    <label>Фамилия</label>
-    <label>${selectedUser.surname}</label>
-</div>
-<form action="/slotSwap/admin/user/update" method="post">
-
-    <div>
-        <label>Статус</label>
-        <select name="selectedUserRole">
-            <#if selectedUser.role == 'Стажер'>
-                <option value="Стажер" selected>Стажер</option>
-            <#else>
-                <option value="Стажер">Стажер</option>
-            </#if>
-            <#if selectedUser.role == 'Младший куратор'>
-                <option value="Младший куратор" selected>Младший куратор</option>
-            <#else>
-                <option value="Младший куратор">Младший куратор</option>
-            </#if>
-            <#if selectedUser.role == 'Старший куратор'>
-                <option value="Старший куратор" selected>Старший куратор</option>
-            <#else>
-                <option value="Старший куратор">Старший куратор</option>
-            </#if>
-            <#if selectedUser.role == 'Админ'>
-                <option value="Админ" selected>Админ</option>
-            <#else>
-                <option value="Админ">Админ</option>
-            </#if>
-        </select>
+<div class="container">
+    <div class="block">
+        <div class="buttons-div"
+             style="border-bottom-left-radius: 0; border-bottom-right-radius: 0; pointer-events: none;">
+            <a> <b>Имя: </b><span style="margin-left: 8px"> ${selectedUser.name}</a>
+        </div>
+        <div class="buttons-div" style="border-top-left-radius: 0; border-top-right-radius: 0; pointer-events: none;">
+            <a> <b>Фамилия: </b><span style="margin-left: 8px"> ${selectedUser.surname}</a>
+        </div>
     </div>
-    <input type="submit" value="Готово">
-</form>
-<form action="/slotSwap/admin/user/delete" method="post">
-    <input type = 'hidden' name = 'selectedUserLogin' value = "${selectedUser.login}">
-    <input type="submit" value="Удалить пользователя">
-</form>
+
+    <form action="/slotSwap/admin/user/update" method="post" class="select-record-type">
+        <div class="form-wrapper" style>
+            <label style="margin-bottom: 3px">Выберите роль</label>
+            <label>
+                <select name="selectedUserRole">
+                    <option value="Стажер" <#if selectedUser.role == "Стажер">selected</#if>>Стажер</option>
+                    <option value="Младший куратор" <#if selectedUser.role == "Младший куратор">selected</#if>>
+                        Младший куратор
+                    </option>
+                    <option value="Старший куратор" <#if selectedUser.role == "Старший куратор">selected</#if>>
+                        Старший куратор
+                    </option>
+                    <option value="Админ" <#if selectedUser.role == "Админ">selected</#if>>Админ</option>
+                </select>
+            </label>
+            <input type="submit" value="Готово" class="button-login">
+        </div>
+    </form>
+
+    <div class="block">
+        <div class="buttons-div" style="background-color: black">
+            <form action="/slotSwap/admin/user/delete" method="post">
+                <input type="submit" value="Удалить пользователя" class="button-login">
+            </form>
+        </div>
+
+    </div>
+
+</div>
 </body>
 </html>

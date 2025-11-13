@@ -174,8 +174,9 @@ public class UserService {
     }
 
     public String deleteUser(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
         String resource = "/admin/users";
-        String login = request.getParameter("selectedUserLogin");
+        String login = (String) session.getAttribute("selectedUserLogin");
         try {
             userRepository.deleteUserByLogin(login);
         } catch (Exception e) {

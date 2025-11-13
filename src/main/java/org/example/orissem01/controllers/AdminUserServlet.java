@@ -24,9 +24,4 @@ public class AdminUserServlet extends HttpServlet {
         request.getRequestDispatcher("/adminUser.ftl").forward(request, response);
     }
 
-    @Override
-    public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        doGet(request, response);
-    }
-
 }

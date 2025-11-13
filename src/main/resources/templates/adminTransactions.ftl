@@ -3,6 +3,8 @@
 <head>
     <title>Transactions</title>
     <link rel="stylesheet" href="/slotSwap/static/css/up-panel.css">
+    <link rel="stylesheet" href="/slotSwap/static/css/profile.css">
+    <link rel="stylesheet" href="/slotSwap/static/css/table.css">
 
 </head>
 <body>
@@ -18,7 +20,7 @@
     </div>
 </div>
 
-<h1>
+<h1 style="margin-bottom: 3px">
     История обменов
 </h1>
 <div>
