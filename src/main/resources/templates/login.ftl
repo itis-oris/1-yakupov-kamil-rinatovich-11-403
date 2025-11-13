@@ -4,7 +4,8 @@
     <title>Login</title>
     <link rel="stylesheet" href="/slotSwap/static/css/up-panel.css">
     <link rel="stylesheet" href="/slotSwap/static/css/input.css">
-
+    <link rel="stylesheet" href="/slotSwap/static/css/error.css">
+    <script src="/slotSwap/static/js/error.js"></script>
 </head>
 <body>
 <div class="up-panel">
@@ -18,20 +19,24 @@
     </div>
 </div>
 
-<div style="color:red">${errormessage!}</div>
+<#if errormessage??>
+    <div id = "error-block" class="error" onclick="hide()">
+        <span class="text">${errormessage}</span>
+    </div>
+</#if>
 
 <form action="/slotSwap/usercheck" method="post">
     <div class="form-wrapper">
         <h2>Введите логин и пароль</h2>
         <div>
             <label>
-                <input type="text" placeholder="Логин" name="login">
+                <input type="text" placeholder="Логин" name="login" required>
             </label>
         </div>
 
         <div>
             <label>
-                <input type="password" placeholder="Пароль" name="password">
+                <input type="password" placeholder="Пароль" name="password" required>
             </label>
         </div>
 

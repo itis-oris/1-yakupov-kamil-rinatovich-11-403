@@ -68,7 +68,7 @@ public class UserService {
         String name = request.getParameter("name");
         String surname = request.getParameter("surname");
 
-        if (isEmptyParam(login) || isEmptyParam(password) || isEmptyParam(name) || isEmptyParam(surname)) {
+        if (isEmptyParam(login) || isEmptyParam(password) || isEmptyParam(name) || isEmptyParam(surname)) {//убрал
             request.setAttribute("errormessage", "Введите корректные данные");
             return resource;
         } else {
@@ -98,7 +98,7 @@ public class UserService {
         String surname = request.getParameter("surname");
 
         if (isEmptyParam(newPassword) || isEmptyParam(oldPassword)
-                || isEmptyParam(name) || isEmptyParam(surname)) {
+                || isEmptyParam(name) || isEmptyParam(surname)) {//убрал
             request.setAttribute("errormessage", "Введите корректные данные");
             request.setAttribute("user", user);
             return resource;
@@ -117,7 +117,6 @@ public class UserService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        request.setAttribute("successmessage", "Данные успешно изменены!");
         request.setAttribute("user", user);
         return resource;
     }
@@ -145,7 +144,7 @@ public class UserService {
             String login = request.getParameter("login");
             String password = request.getParameter("password");
 
-            if (isEmptyParam(login) || isEmptyParam(password)) {
+            if (isEmptyParam(login) || isEmptyParam(password)) {//убрал
                 request.setAttribute("errormessage", "Логин и пароль не должны быть пустыми");
                 resource = "/login.ftl";
             } else {

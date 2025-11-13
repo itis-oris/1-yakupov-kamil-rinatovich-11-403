@@ -40,7 +40,7 @@
     <div style = "display: flex; justify-content: center">
         <form method="get" action="/slotSwap/admin/user">
             <input type="hidden" id="selectedRecord" name="selectedUserLogin">
-            <input type="submit" value="Показать пользователя" class = "button-login">
+            <input type="submit" value="Показать пользователя" class = "button-login" onclick="return isSelectOnly()">
         </form>
     </div>
 </div>

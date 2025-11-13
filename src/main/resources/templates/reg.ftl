@@ -4,6 +4,8 @@
     <title>Registration</title>
     <link rel="stylesheet" href="/slotSwap/static/css/up-panel.css">
     <link rel="stylesheet" href="/slotSwap/static/css/input.css">
+    <link rel="stylesheet" href="/slotSwap/static/css/error.css">
+    <script src="/slotSwap/static/js/error.js"></script>
 </head>
 <body>
 <div class="up-panel">
@@ -17,30 +19,34 @@
     </div>
 </div>
 
-<div style="color:red">${errormessage!}</div>
+<#if errormessage??>
+    <div id = "error-block" class="error" onclick="hide()">
+        <span class="text">${errormessage}</span>
+    </div>
+</#if>
 
 <form action="/slotSwap/reg" method="post">
     <div class="form-wrapper">
         <h2>Введите данные для регистрации</h2>
         <div>
             <label>
-                <input type="text" placeholder="Имя" name="name">
+                <input type="text" placeholder="Имя" name="name" required>
             </label>
         </div>
 
         <div>
             <label>
-                <input type="text" placeholder="Фамилия" name="surname">
+                <input type="text" placeholder="Фамилия" name="surname" required>
             </label>
         </div>
         <div>
             <label>
-                <input type="text" placeholder="Логин" name="login">
+                <input type="text" placeholder="Логин" name="login" required>
             </label>
         </div>
         <div>
             <label>
-                <input type="password" placeholder="Пароль" name="password">
+                <input type="password" placeholder="Пароль" name="password" required>
             </label>
         </div>
 

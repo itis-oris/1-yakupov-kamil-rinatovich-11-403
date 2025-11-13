@@ -4,6 +4,8 @@
     <title>Edit</title>
     <link rel="stylesheet" href="/slotSwap/static/css/up-panel.css">
     <link rel="stylesheet" href="/slotSwap/static/css/input.css">
+    <link rel="stylesheet" href="/slotSwap/static/css/error.css">
+    <script src="/slotSwap/static/js/error.js"></script>
 </head>
 <body>
 <div class="up-panel">
@@ -18,33 +20,37 @@
     </div>
 </div>
 
-<div style="color:red">${errormessage!}</div>
-<div style="color:greenyellow">${successmessage!}</div>
+<#if errormessage??>
+    <div id = "error-block" class="error" onclick="hide()">
+        <span class="text">${errormessage}</span>
+    </div>
+</#if>
+
 <form action="/slotSwap/user/update" method="post">
     <div class="form-wrapper">
         <div>
             <label>
-                <input type="text" name="name" value="${user.name}" placeholder="Имя">
+                <input type="text" name="name" value="${user.name}" placeholder="Имя" required>
             </label>
         </div>
         <div>
             <label>
-                <input type="text" name="surname" value="${user.surname}" placeholder="Фамилия">
+                <input type="text" name="surname" value="${user.surname}" placeholder="Фамилия" required>
             </label>
         </div>
         <div>
             <label>
-                <input type="password" name="oldPassword" placeholder="Старый Пароль">
+                <input type="password" name="oldPassword" placeholder="Старый Пароль" required>
             </label>
         </div>
         <div>
             <label>
-                <input type="password" name="newPassword" placeholder="Новый Пароль">
+                <input type="password" name="newPassword" placeholder="Новый Пароль" required>
             </label>
         </div>
         <div class="buttons" style="justify-content: center">
             <div class="div-button">
-                <input type="submit" value="Готово" class="button-login">
+                <input type="submit" value="Готово" class="button-login" onclick="return confirm('Подтвердите обновление данных')">
             </div>
         </div>
     </div>

@@ -46,14 +46,14 @@
                     <option value="Админ" <#if selectedUser.role == "Админ">selected</#if>>Админ</option>
                 </select>
             </label>
-            <input type="submit" value="Готово" class="button-login">
+            <input type="submit" value="Готово" class="button-login" onclick="return confirm('Подтвердите изменение роли')">
         </div>
     </form>
 
     <div class="block">
         <div class="buttons-div" style="background-color: black">
             <form action="/slotSwap/admin/user/delete" method="post">
-                <input type="submit" value="Удалить пользователя" class="button-login">
+                <input type="submit" value="Удалить пользователя" class="button-login" onclick="return confirm('Подтвердите удаление аккаунта')">
             </form>
         </div>
 

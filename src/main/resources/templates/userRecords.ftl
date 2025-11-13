@@ -58,7 +58,7 @@
         <form method="post" action="/slotSwap/user/records">
             <input type="hidden" id="selectedRecord" name="choosedRecordId">
             <#if recordsType == 'sheduled' || recordsType == 'exchanged'>
-                <input type="submit" value="<#if recordsType == 'sheduled'>Отдать<#else>Отозвать</#if>" class = "button-login">
+                <input type="submit" value="<#if recordsType == 'sheduled'>Отдать<#else>Отозвать</#if>" class = "button-login" onclick="return isSelect()">
             </#if>
         </form>
         </div>

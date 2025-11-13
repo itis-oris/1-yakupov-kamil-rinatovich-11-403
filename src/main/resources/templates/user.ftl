@@ -50,7 +50,7 @@
             <a href="/slotSwap/user/records">Посмотреть мои смены</a>
         </div>
         <div class="buttons-div" style="border-top-left-radius: 0; border-top-right-radius: 0">
-            <a href="/slotSwap/login">Выйти из аккаунта</a>
+            <a href="/slotSwap/login" onclick="return confirm('Подтвердите выход')">Выйти из аккаунта</a>
         </div>
     </div>
 </div>

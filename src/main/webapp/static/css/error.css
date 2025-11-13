@@ -1,0 +1,19 @@
+.error {
+    position: fixed;
+    z-index: 9999;
+    top: 15px;
+    left: 50%;
+    transform: translate(-50%);
+    display: flex;
+    background-color: #ff4e4d;
+    border-radius: 20px;
+    padding: 25px;
+    cursor: pointer;
+    font-family: "SF Pro Display", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+    color: white;
+    box-shadow:
+            0 16px 40px rgba(0, 0, 0, 0.12),
+            0 8px 20px rgba(0, 0, 0, 0.08),
+            0 4px 10px rgba(0, 0, 0, 0.04),
+            inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}

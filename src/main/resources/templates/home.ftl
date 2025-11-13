@@ -50,7 +50,7 @@
         <div style = "display: flex; justify-content: center">
             <form method="post" action="/slotSwap/home">
                 <input type="hidden" id="selectedRecord" name="choosedRecordId">
-                <input type="submit" value="Взять" class = "button-login">
+                <input type="submit" value="Взять" class = "button-login" onclick="return isSelect()">
             </form>
         </div>
     </div>
