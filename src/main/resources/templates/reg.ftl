@@ -30,23 +30,23 @@
         <h2>Введите данные для регистрации</h2>
         <div>
             <label>
-                <input type="text" placeholder="Имя" name="name" required>
+                <input type="text" placeholder="Имя" name="name" required maxlength="50">
             </label>
         </div>
 
         <div>
             <label>
-                <input type="text" placeholder="Фамилия" name="surname" required>
+                <input type="text" placeholder="Фамилия" name="surname" required maxlength="50">
             </label>
         </div>
         <div>
             <label>
-                <input type="text" placeholder="Логин" name="login" required minlength="8">
+                <input type="text" placeholder="Логин" name="login" required minlength="8" maxlength="50">
             </label>
         </div>
         <div>
             <label>
-                <input type="password" placeholder="Пароль" name="password" required minlength="8">
+                <input type="password" placeholder="Пароль" name="password" required minlength="8" maxlength="100">
             </label>
         </div>
 

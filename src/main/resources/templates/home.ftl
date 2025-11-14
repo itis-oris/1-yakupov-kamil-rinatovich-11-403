@@ -44,7 +44,7 @@
         </div>
         <div class = "form-wrapper">
             <label>
-                <input type="text" placeholder="Комментарий" name="comment">
+                <input type="text" placeholder="Комментарий" name="comment" maxlength="500">
             </label>
         </div>
         <div style = "display: flex; justify-content: center">

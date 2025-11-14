@@ -30,22 +30,22 @@
     <div class="form-wrapper">
         <div>
             <label>
-                <input type="text" name="name" value="${user.name}" placeholder="Имя" required>
+                <input type="text" name="name" value="${user.name}" placeholder="Имя" required maxlength="50">
             </label>
         </div>
         <div>
             <label>
-                <input type="text" name="surname" value="${user.surname}" placeholder="Фамилия" required>
+                <input type="text" name="surname" value="${user.surname}" placeholder="Фамилия" required maxlength="50">
             </label>
         </div>
         <div>
             <label>
-                <input type="password" name="oldPassword" placeholder="Старый Пароль" required minlength="8">
+                <input type="password" name="oldPassword" placeholder="Старый Пароль" required minlength="8" maxlength="100">
             </label>
         </div>
         <div>
             <label>
-                <input type="password" name="newPassword" placeholder="Новый Пароль" required minlength="8">
+                <input type="password" name="newPassword" placeholder="Новый Пароль" required minlength="8" maxlength="100">
             </label>
         </div>
         <div class="buttons" style="justify-content: center">

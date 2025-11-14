@@ -4,8 +4,12 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 import javax.sql.DataSource;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class DBConnection {
 
@@ -14,11 +18,22 @@ public class DBConnection {
     public static void init() throws ClassNotFoundException {
         Class.forName("org.postgresql.Driver");
 
-        HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:postgresql://localhost:5432/ORIS_SEM_01");
-        config.setUsername("postgres");
-        config.setPassword(null);
-        dataSource = new HikariDataSource(config);
+        Properties properties = new Properties();
+
+        try(InputStream inputStream = DBConnection.class.getClassLoader()
+                .getResourceAsStream("/config/application.properties");){
+            properties.load(inputStream);
+
+            HikariConfig config = new HikariConfig();
+            config.setJdbcUrl(properties.getProperty("database.url"));
+            config.setUsername(properties.getProperty("database.username"));
+            config.setPassword(properties.getProperty("database.password"));
+            dataSource = new HikariDataSource(config);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
     }
 
     public static Connection getConnection() throws SQLException, ClassNotFoundException {
