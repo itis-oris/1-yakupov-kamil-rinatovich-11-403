@@ -17,7 +17,7 @@ public class AuthFilter implements Filter {
 
         if (!checkExcluded(((HttpServletRequest) request).getServletPath())
                 && (session == null || session.getAttribute("userLogin") == null)){
-            ((HttpServletResponse) response).sendRedirect("/slotSwap/welcome");
+            ((HttpServletResponse) response).sendRedirect(String.format("%s/welcome", ((HttpServletRequest) request).getContextPath()));
         } else {
             filterChain.doFilter(request, response);
         }

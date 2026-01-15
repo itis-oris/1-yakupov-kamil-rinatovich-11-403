@@ -60,19 +60,15 @@ public class UserService {
         return true;
     }
 
-    public void updateUser(HttpServletRequest request) throws MySQLException, ConnectionException {
+    public void updateUser(HttpServletRequest request) throws MySQLException, ConnectionException, NotValidPassword {
         User user = findUserByLogin(request);
         try {
             mapUpdateUser(request, user);
             userRepository.updateUser(user);
-        } catch (NotValidPassword e) {
-            request.setAttribute("errormessage", e.getMessage());
         } catch (SQLException e) {
             throw new MySQLException();
         } catch (ClassNotFoundException e) {
             throw new ConnectionException();
-        } finally {
-            request.setAttribute("user", user);
         }
     }
 

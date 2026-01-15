@@ -12,6 +12,8 @@ import org.example.orissem01.exceptions.DublicateUserException;
 import org.example.orissem01.services.UserService;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @WebServlet("/reg")
 public class RegServlet extends HttpServlet {
@@ -31,27 +33,26 @@ public class RegServlet extends HttpServlet {
         if (session != null) {
             session.invalidate();
         }
-
+        request.setAttribute("context", request.getContextPath());
+        request.setAttribute("errormessage", request.getParameter("errormessage"));
         request.getRequestDispatcher("/reg.ftl").forward(request, response);
     }
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String resource = "/reg.ftl";
-
+        String resource = "/reg";
         try {
             if (userService.regUser(request)) {
                 HttpSession session = request.getSession(true);
                 String login = request.getParameter("login");
                 session.setAttribute("userLogin", login);
-                resource = "/home.ftl";
+                resource = "/home";
             }
         } catch (ConnectionException e) {
             throw new RuntimeException(e.getMessage());
         } catch (DublicateUserException e) {
-            request.setAttribute("errormessage", e.getMessage());
+            resource = resource + "?errormessage=" + URLEncoder.encode(e.getMessage(), StandardCharsets.UTF_8);
         }
-
-        request.getRequestDispatcher(resource).forward(request, response);
+        response.sendRedirect(String.format("%s%s", request.getContextPath(), resource));
     }
 }

@@ -2,15 +2,15 @@
 <html lang="ru">
 <head>
     <title>Login</title>
-    <link rel="stylesheet" href="/slotSwap/static/css/up-panel.css">
-    <link rel="stylesheet" href="/slotSwap/static/css/input.css">
-    <link rel="stylesheet" href="/slotSwap/static/css/error.css">
-    <script src="/slotSwap/static/js/error.js"></script>
+    <link rel="stylesheet" href="${context}/static/css/up-panel.css">
+    <link rel="stylesheet" href="${context}/static/css/input.css">
+    <link rel="stylesheet" href="${context}/static/css/error.css">
+    <script src="${context}/static/js/error.js"></script>
 </head>
 <body>
 <div class="up-panel">
     <div class="div-up-panel">
-        <a href="/slotSwap/home" class="home-button"></a>
+        <a href="${context}/home" class="home-button"></a>
     </div>
     <div class="div-up-panel">
         <span class="up-panel-name">SLOT SWAP</span>
@@ -25,7 +25,7 @@
     </div>
 </#if>
 
-<form action="/slotSwap/usercheck" method="post">
+<form action="${context}/usercheck" method="post">
     <div class="form-wrapper">
         <h2>Введите логин и пароль</h2>
         <div>
@@ -46,7 +46,7 @@
             </div>
 
             <div class="div-button">
-                <a href="/slotSwap/reg" class="button-reg">Регистрация</a>
+                <a href="${context}/reg" class="button-reg">Регистрация</a>
             </div>
         </div>
 

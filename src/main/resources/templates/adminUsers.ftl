@@ -2,22 +2,22 @@
 <html lang="ru">
 <head>
     <title>User list</title>
-    <link rel="stylesheet" href="/slotSwap/static/css/up-panel.css">
-    <link rel="stylesheet" href="/slotSwap/static/css/card.css">
-    <link rel="stylesheet" href="/slotSwap/static/css/input.css">
-    <link rel="stylesheet" href="/slotSwap/static/css/profile.css">
-    <script src="/slotSwap/static/js/card.js"></script>
+    <link rel="stylesheet" href="${context}/static/css/up-panel.css">
+    <link rel="stylesheet" href="${context}/static/css/card.css">
+    <link rel="stylesheet" href="${context}/static/css/input.css">
+    <link rel="stylesheet" href="${context}/static/css/profile.css">
+    <script src="${context}/static/js/card.js"></script>
 </head>
 <body>
 <div class="up-panel">
     <div class="div-up-panel">
-        <a href="/slotSwap/home" class="home-button"></a>
+        <a href="${context}/home" class="home-button"></a>
     </div>
     <div class="div-up-panel">
         <span class="up-panel-name">SLOT SWAP</span>
     </div>
     <div class="div-up-panel">
-        <a href="/slotSwap/user" class="profile-button"></a>
+        <a href="${context}/user" class="profile-button"></a>
     </div>
 </div>
 
@@ -38,7 +38,7 @@
         </#list>
     </div>
     <div style = "display: flex; justify-content: center">
-        <form method="get" action="/slotSwap/admin/user">
+        <form method="get" action="${context}/admin/user">
             <input type="hidden" id="selectedRecord" name="selectedUserLogin">
             <input type="submit" value="Показать пользователя" class = "button-login" onclick="return isSelectOnly()">
         </form>

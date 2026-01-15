@@ -2,21 +2,21 @@
 <html lang="ru">
 <head>
     <title>Transactions</title>
-    <link rel="stylesheet" href="/slotSwap/static/css/up-panel.css">
-    <link rel="stylesheet" href="/slotSwap/static/css/profile.css">
-    <link rel="stylesheet" href="/slotSwap/static/css/table.css">
-    <link rel="stylesheet" href="/slotSwap/static/css/card.css">
+    <link rel="stylesheet" href="${context}/static/css/up-panel.css">
+    <link rel="stylesheet" href="${context}/static/css/profile.css">
+    <link rel="stylesheet" href="${context}/static/css/table.css">
+    <link rel="stylesheet" href="${context}/static/css/card.css">
 </head>
 <body>
 <div class="up-panel">
     <div class="div-up-panel">
-        <a href="/slotSwap/home" class="home-button"></a>
+        <a href="${context}/home" class="home-button"></a>
     </div>
     <div class="div-up-panel">
         <span class="up-panel-name">SLOT SWAP</span>
     </div>
     <div class="div-up-panel">
-        <a href="/slotSwap/user" class="profile-button"></a>
+        <a href="${context}/user" class="profile-button"></a>
     </div>
 </div>
 <#if transactions??>

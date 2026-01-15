@@ -13,6 +13,8 @@ import org.example.orissem01.services.UserService;
 import org.example.orissem01.utils.Password;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @WebServlet("/usercheck")
 public class UserCheckServlet extends HttpServlet {
@@ -26,20 +28,15 @@ public class UserCheckServlet extends HttpServlet {
     }
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
-    }
-
-    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String resource = checkUser(request);
-        request.getRequestDispatcher(resource).forward(request, response);
+        response.sendRedirect(String.format("%s%s", request.getContextPath(), resource));
     }
 
     private String checkUser(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
 
-        String resource = "/login.ftl";
+        String resource = "/login";
 
         if (session == null || session.getAttribute("userLogin") == null) {
             String login = request.getParameter("login");
@@ -47,14 +44,14 @@ public class UserCheckServlet extends HttpServlet {
             try {
                 String userPassword = userService.getUserHashPassword(login);
                 if (userPassword == null) {
-                    request.setAttribute("errormessage", "Пользователя с таким логином не существует");
+                    resource = resource + "?errormessage=" + URLEncoder.encode("Пользователя с таким логином не существует", StandardCharsets.UTF_8);
                 } else {
                     if (Password.matches(password, userPassword)) {
                         session = request.getSession(true);
                         session.setAttribute("userLogin", login);
                         resource = "/home";
                     } else {
-                        request.setAttribute("errormessage", "Неверный пароль, попробуйте еще раз!");
+                        resource = resource + "?errormessage=" + URLEncoder.encode("Неверный пароль, попробуйте еще раз!", StandardCharsets.UTF_8);
                     }
                 }
             } catch (MySQLException | ConnectionException e) {

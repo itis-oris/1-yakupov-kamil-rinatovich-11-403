@@ -27,6 +27,7 @@ public class AdminUsersServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         try {
             request.setAttribute("users", userService.getAll());
+            request.setAttribute("context", request.getContextPath());
             request.getRequestDispatcher("/adminUsers.ftl").forward(request, response);
         } catch (MySQLException | ConnectionException e) {
             throw new RuntimeException(e.getMessage());

@@ -28,6 +28,7 @@ public class AdminUserServlet extends HttpServlet {
         String login = request.getParameter("selectedUserLogin");
         session.setAttribute("selectedUserLogin", login);
         request.setAttribute("selectedUser", userService.findUserByLogin(login));
+        request.setAttribute("context", request.getContextPath());
         request.getRequestDispatcher("/adminUser.ftl").forward(request, response);
     }
 

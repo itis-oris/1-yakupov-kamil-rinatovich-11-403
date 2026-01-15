@@ -26,13 +26,13 @@ public class AdminFilter implements Filter {
         HttpSession session = ((HttpServletRequest) request).getSession(false);
 
         if ((session == null || session.getAttribute("userLogin") == null)){
-            ((HttpServletResponse) response).sendRedirect("/slotSwap/welcome");
+            ((HttpServletResponse) response).sendRedirect(String.format("%s/welcome", ((HttpServletRequest) request).getContextPath()));
         } else {
             User user = userService.findUserByLogin((HttpServletRequest) request);
             if (user.getRole().equalsIgnoreCase("админ")) {
                 filterChain.doFilter(request, response);
             } else {
-                ((HttpServletResponse) response).sendRedirect("/slotSwap/welcome");
+                ((HttpServletResponse) response).sendRedirect(String.format("%s/welcome", ((HttpServletRequest) request).getContextPath()));
             }
         }
     }

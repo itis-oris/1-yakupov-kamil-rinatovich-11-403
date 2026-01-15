@@ -2,25 +2,25 @@
 <html lang="ru">
 <head>
     <title>Records</title>
-    <link rel="stylesheet" href="/slotSwap/static/css/up-panel.css">
-    <link rel="stylesheet" href="/slotSwap/static/css/card.css">
-    <link rel="stylesheet" href="/slotSwap/static/css/input.css">
-    <script src="/slotSwap/static/js/card.js"></script>
+    <link rel="stylesheet" href="${context}/static/css/up-panel.css">
+    <link rel="stylesheet" href="${context}/static/css/card.css">
+    <link rel="stylesheet" href="${context}/static/css/input.css">
+    <script src="${context}/static/js/card.js"></script>
 </head>
 
 <body>
 <div class="up-panel">
     <div class="div-up-panel">
-        <a href="/slotSwap/home" class="home-button"></a>
+        <a href="${context}/home" class="home-button"></a>
     </div>
     <div class="div-up-panel">
         <span class="up-panel-name">SLOT SWAP</span>
     </div>
     <div class="div-up-panel">
-        <a href="/slotSwap/user" class="profile-button"></a>
+        <a href="${context}/user" class="profile-button"></a>
     </div>
 </div>
-<form method="get" action="/slotSwap/user/records" class = "select-record-type">
+<form method="get" action="${context}/user/records" class = "select-record-type">
     <div>
         <label style="margin-bottom: 3px">Выберите тип смены</label>
         <label>
@@ -55,7 +55,7 @@
             </#list>
         </div>
         <div style = "display: flex; justify-content: center">
-        <form method="post" action="/slotSwap/user/records">
+        <form method="post" action="${context}/user/records">
             <input type="hidden" id="selectedRecord" name="choosedRecordId">
             <#if recordsType == 'sheduled' || recordsType == 'exchanged'>
                 <input type="submit" value="<#if recordsType == 'sheduled'>Отдать<#else>Отозвать</#if>" class = "button-login" onclick="return isSelect()">

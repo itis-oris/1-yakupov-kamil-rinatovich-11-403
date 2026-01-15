@@ -2,14 +2,14 @@
 <html lang="ru">
 <head>
     <title>Profile</title>
-    <link rel="stylesheet" href="/slotSwap/static/css/up-panel.css">
-    <link rel="stylesheet" href="/slotSwap/static/css/profile.css">
+    <link rel="stylesheet" href="${context}/static/css/up-panel.css">
+    <link rel="stylesheet" href="${context}/static/css/profile.css">
 </head>
 
 <body>
 <div class="up-panel">
     <div class="div-up-panel">
-        <a href="/slotSwap/home" class="home-button"></a>
+        <a href="${context}/home" class="home-button"></a>
     </div>
     <div class="div-up-panel">
         <span class="up-panel-name">SLOT SWAP</span>
@@ -32,10 +32,10 @@
     <#if user.role == 'Админ'>
         <div class="block" style="height: 120px">
             <div class="buttons-div" style="border-bottom-left-radius: 0; border-bottom-right-radius: 0;">
-                <a href="/slotSwap/admin/users">Показать всех пользователей</a>
+                <a href="${context}/admin/users">Показать всех пользователей</a>
             </div>
             <div class="buttons-div" style="border-top-left-radius: 0; border-top-right-radius: 0;">
-                <a href="/slotSwap/admin/transactions">Показать историю обменов</a>
+                <a href="${context}/admin/transactions">Показать историю обменов</a>
             </div>
         </div>
 
@@ -43,14 +43,14 @@
 
     <div class="block">
         <div class="buttons-div" style = "border-bottom-left-radius: 0; border-bottom-right-radius: 0">
-            <a href="/slotSwap/user/update" class="buttons">Изменить данные</a>
+            <a href="${context}/user/update" class="buttons">Изменить данные</a>
         </div>
 
         <div class="buttons-div" style = "border-radius: 0;">
-            <a href="/slotSwap/user/records">Посмотреть мои смены</a>
+            <a href="${context}/user/records">Посмотреть мои смены</a>
         </div>
         <div class="buttons-div" style="border-top-left-radius: 0; border-top-right-radius: 0">
-            <a href="/slotSwap/login" onclick="return confirm('Подтвердите выход')">Выйти из аккаунта</a>
+            <a href="${context}/login" onclick="return confirm('Подтвердите выход')">Выйти из аккаунта</a>
         </div>
     </div>
 </div>

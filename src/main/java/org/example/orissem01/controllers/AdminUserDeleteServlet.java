@@ -25,17 +25,12 @@ public class AdminUserDeleteServlet extends HttpServlet {
     }
 
     @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        doPost(request, response);
-    }
-
-    @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         HttpSession session = request.getSession(false);
         String login = (String) session.getAttribute("selectedUserLogin");
         try {
             userService.deleteUser(login);
-            request.getRequestDispatcher("/admin/users").forward(request, response);
+            response.sendRedirect(String.format("%s%s", request.getContextPath(), "/admin/users"));
         } catch (MySQLException | ConnectionException e) {
             throw new RuntimeException(e.getMessage());
         }

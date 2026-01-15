@@ -14,6 +14,8 @@ import org.example.orissem01.services.RecordService;
 import org.example.orissem01.services.UserService;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @WebServlet("/user/records")
@@ -37,6 +39,7 @@ public class UserRecordsServlet extends HttpServlet {
         if (recordsType != null && !(records = recordService.getUserRecords(recordsType, user)).isEmpty()) {
             request.setAttribute("records", records);
         }
+        request.setAttribute("context", request.getContextPath());
         request.getRequestDispatcher("/userRecords.ftl").forward(request, response);
     }
 
@@ -48,8 +51,8 @@ public class UserRecordsServlet extends HttpServlet {
         Long id = Long.parseLong(recordId);
         try {
             recordService.updateUserRecord(user, recordsType, id);
-            request.setAttribute("recordsType", recordsType);
-            doGet(request, response);
+            String resource = "/user/records" + "?recordsType=" + URLEncoder.encode(recordsType, StandardCharsets.UTF_8);
+            response.sendRedirect(String.format("%s%s", request.getContextPath(), resource));
         } catch (MySQLException | ConnectionException e) {
             throw new RuntimeException(e);
         }

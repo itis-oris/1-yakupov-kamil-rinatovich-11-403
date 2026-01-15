@@ -2,21 +2,21 @@
 <html lang="ru">
 <head>
     <title>Edit</title>
-    <link rel="stylesheet" href="/slotSwap/static/css/up-panel.css">
-    <link rel="stylesheet" href="/slotSwap/static/css/input.css">
-    <link rel="stylesheet" href="/slotSwap/static/css/error.css">
-    <script src="/slotSwap/static/js/error.js"></script>
+    <link rel="stylesheet" href="${context}/static/css/up-panel.css">
+    <link rel="stylesheet" href="${context}/static/css/input.css">
+    <link rel="stylesheet" href="${context}/static/css/error.css">
+    <script src="${context}/static/js/error.js"></script>
 </head>
 <body>
 <div class="up-panel">
     <div class="div-up-panel">
-        <a href="/slotSwap/home" class="home-button"></a>
+        <a href="${context}/home" class="home-button"></a>
     </div>
     <div class="div-up-panel">
         <span class="up-panel-name">SLOT SWAP</span>
     </div>
     <div class="div-up-panel">
-        <a href="/slotSwap/user" class="profile-button"></a>
+        <a href="${context}/user" class="profile-button"></a>
     </div>
 </div>
 
@@ -26,7 +26,7 @@
     </div>
 </#if>
 
-<form action="/slotSwap/user/update" method="post">
+<form action="${context}/user/update" method="post">
     <div class="form-wrapper">
         <div>
             <label>

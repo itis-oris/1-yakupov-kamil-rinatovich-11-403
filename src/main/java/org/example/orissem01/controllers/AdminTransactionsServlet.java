@@ -33,6 +33,7 @@ public class AdminTransactionsServlet extends HttpServlet {
             if (!transactions.isEmpty()) {
                 request.setAttribute("transactions", transactions);
             }
+            request.setAttribute("context", request.getContextPath());
             request.getRequestDispatcher("/adminTransactions.ftl").forward(request, response);
         } catch (MySQLException | ConnectionException e) {
             throw new RuntimeException(e.getMessage());

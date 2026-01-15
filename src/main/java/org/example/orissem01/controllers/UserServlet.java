@@ -24,6 +24,7 @@ public class UserServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("user", userService.findUserByLogin(request));
+        request.setAttribute("context", request.getContextPath());
         request.getRequestDispatcher("/user.ftl").forward(request, response);
     }
 

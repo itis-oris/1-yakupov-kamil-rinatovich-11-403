@@ -19,7 +19,8 @@ public class LoginServlet extends HttpServlet {
         if (session != null) {
             session.invalidate();
         }
-
+        request.setAttribute("context", request.getContextPath());
+        request.setAttribute("errormessage", request.getParameter("errormessage"));
         request.getRequestDispatcher("/login.ftl").forward(request, response);
     }
 

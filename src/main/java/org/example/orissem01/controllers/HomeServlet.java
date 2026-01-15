@@ -48,6 +48,7 @@ public class HomeServlet extends HttpServlet {
         }
 
         request.setAttribute("records", records);
+        request.setAttribute("context", request.getContextPath());
         request.getRequestDispatcher("/home.ftl").forward(request, response);
     }
 
@@ -56,6 +57,6 @@ public class HomeServlet extends HttpServlet {
         if (request.getParameter("choosedRecordId") != null) {
             transactonService.addTransaction(request);
         }
-        doGet(request, response);
+        response.sendRedirect(String.format("%s%s", request.getContextPath(), "/home"));
     }
 }
