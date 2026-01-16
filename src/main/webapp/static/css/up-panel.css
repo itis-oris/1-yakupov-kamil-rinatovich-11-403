@@ -14,7 +14,7 @@ body{
 .home-button{
     width: 6vh;
     height: 6vh;
-    background-image: url('/slotSwap/static/img/homelogo.jpg');
+    background-image: url('../img/homelogo.jpg');
     display: block;
     background-size: contain;
     background-repeat: no-repeat;
@@ -22,7 +22,7 @@ body{
 }
 
 .home-button:hover{
-    background-image: url('/slotSwap/static/img/homelogohover.jpg');
+    background-image: url('../img/homelogohover.jpg');
 }
 
 .div-up-panel{
@@ -45,12 +45,12 @@ body{
     /*Только для этой картинки*/
     width: 5vh;
     height: 5vh;
-    background-image: url('/slotSwap/static/img/profile.jpg');
+    background-image: url('../img/profile.jpg');
     display: block;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 }
 .profile-button:hover{
-    background-image: url('/slotSwap/static/img/profilehover.jpg');
+    background-image: url('../img/profilehover.jpg');
 }

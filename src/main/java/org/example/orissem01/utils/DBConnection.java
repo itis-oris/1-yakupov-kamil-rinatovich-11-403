@@ -2,6 +2,7 @@ package org.example.orissem01.utils;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
+import org.postgresql.Driver;
 
 import javax.sql.DataSource;
 import java.io.FileInputStream;
@@ -16,6 +17,7 @@ public class DBConnection {
     private static DataSource dataSource;
 
     public static void init() throws ClassNotFoundException {
+
         Class.forName("org.postgresql.Driver");
 
         Properties properties = new Properties();
